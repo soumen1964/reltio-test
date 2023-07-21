@@ -1,0 +1,686 @@
+{
+  "uri": "configuration",
+  "description": "Example of Reltio Metadata Configuration",
+  "label": "Business Model",
+  "schemaVersion": "2.2.5",
+  "sources": [
+    {
+      "uri": "configuration/sources/LNKD",
+      "label": "Linkedin",
+      "icon": "images/source/linkedin.png",
+      "abbreviation": "LNKD"
+    },
+    {
+      "uri": "configuration/sources/Reltio",
+      "label": "Reltio",
+      "icon": "images/source/reltio.png",
+      "abbreviation": "Reltio"
+    },
+    {
+      "uri": "configuration/sources/ReltioCleanser",
+      "label": "Reltio Data Cleanser",
+      "icon": "images/source/reltio.png",
+      "priority": 100500,
+      "abbreviation": "ReltioCleanser"
+    },
+    {
+      "uri": "configuration/sources/FB",
+      "label": "Facebook",
+      "icon": "images/source/facebook.png",
+      "abbreviation": "FB"
+    },
+    {
+      "uri": "configuration/sources/TWITTER",
+      "label": "Twitter",
+      "icon": "images/source/twitter.png",
+      "abbreviation": "TWITTER"
+    }
+  ],
+  "abstract": false,
+  "referenceConfigurationURI": "configuration/_vertical/reltio-core-2020-1",
+  "entityTypes": [
+    {
+      "uri": "configuration/entityTypes/Organization",
+      "typeColor": "#80D557",
+      "abstract": false,
+      "surrogateCrosswalks": [
+        {
+          "enforce": true,
+          "source": "configuration/sources/FB",
+          "attributes": [
+            "configuration/entityTypes/Organization/attributes/Name",
+            "configuration/entityTypes/Organization/attributes/CompanyType",
+            "configuration/entityTypes/Organization/attributes/FoundedYear",
+            "configuration/entityTypes/Organization/attributes/Status"
+          ]
+        },
+        {
+          "enforce": true,
+          "source": "configuration/sources/LNKD",
+          "attributes": [
+            "configuration/entityTypes/Organization/attributes/Name",
+            "configuration/entityTypes/Organization/attributes/CompanyType",
+            "configuration/entityTypes/Organization/attributes/FoundedYear",
+            "configuration/entityTypes/Organization/attributes/Status"
+          ]
+        }
+      ]
+    },
+    {
+      "uri": "configuration/entityTypes/Location",
+      "typeColor": "#573eb5",
+      "abstract": false,
+      "surrogateCrosswalks": [
+        {
+          "enforce": true,
+          "source": "configuration/sources/FB",
+          "attributes": [
+            "configuration/entityTypes/Location/attributes/AddressLine1",
+            "configuration/entityTypes/Location/attributes/AddressLine2",
+            "configuration/entityTypes/Location/attributes/City",
+            "configuration/entityTypes/Location/attributes/StateProvince",
+            "configuration/entityTypes/Location/attributes/Country",
+            "configuration/entityTypes/Location/attributes/Street",
+            "configuration/entityTypes/Location/attributes/SubBuilding",
+            "configuration/entityTypes/Location/attributes/Zip/attributes/Zip5",
+            "configuration/entityTypes/Location/attributes/Zip/attributes/Zip4"
+          ]
+        },
+        {
+          "enforce": true,
+          "source": "configuration/sources/LNKD",
+          "attributes": [
+            "configuration/entityTypes/Location/attributes/AddressLine1",
+            "configuration/entityTypes/Location/attributes/AddressLine2",
+            "configuration/entityTypes/Location/attributes/City",
+            "configuration/entityTypes/Location/attributes/StateProvince",
+            "configuration/entityTypes/Location/attributes/Country",
+            "configuration/entityTypes/Location/attributes/Street",
+            "configuration/entityTypes/Location/attributes/SubBuilding",
+            "configuration/entityTypes/Location/attributes/Zip/attributes/Zip5",
+            "configuration/entityTypes/Location/attributes/Zip/attributes/Zip4"
+          ]
+        }
+      ]
+    },
+    {
+      "uri": "configuration/entityTypes/HCP",
+      "label": "HCP",
+      "description": "Health care provider",
+      "typeColor": "#99CCFF",
+      "extendsTypeURI": "configuration/entityTypes/Individual",
+      "attributes": [
+        {
+          "label": "Gender",
+          "name": "Gender",
+          "description": "",
+          "type": "String",
+          "hidden": false,
+          "important": false,
+          "system": false,
+          "required": false,
+          "faceted": true,
+          "searchable": true,
+          "values": [
+            "Male",
+            "Female",
+            "Unknown"
+          ],
+          "attributeOrdering": {
+            "orderType": "ASC",
+            "orderingStrategy": "LUD"
+          },
+          "uri": "configuration/entityTypes/HCP/attributes/Gender",
+          "lookupCode": "GENDER_CD",
+          "skipInDataAccess": false
+        },
+        {
+          "label": "Prof Designation",
+          "name": "ProfDesignation",
+          "description": "String",
+          "type": "String",
+          "hidden": false,
+          "important": false,
+          "system": false,
+          "required": false,
+          "faceted": true,
+          "searchable": true,
+          "attributeOrdering": {
+            "orderType": "ASC",
+            "orderingStrategy": "LUD"
+          },
+          "uri": "configuration/entityTypes/HCP/attributes/ProfDesignation",
+          "lookupCode": "PROF_DESG",
+          "skipInDataAccess": false
+        },
+        {
+          "label": "Specialty",
+          "name": "Specialities",
+          "type": "Nested",
+          "hidden": true,
+          "important": false,
+          "system": false,
+          "required": false,
+          "faceted": false,
+          "searchable": false,
+          "attributeOrdering": {
+            "orderType": "ASC",
+            "orderingStrategy": "LUD"
+          },
+          "uri": "configuration/entityTypes/HCP/attributes/Specialities",
+          "dataLabelPattern": "{SpecialtyType} - {Specialty}",
+          "matchFieldURIs": [
+            "configuration/entityTypes/Party/attributes/Specialities/attributes/SpecialtyType",
+            "configuration/entityTypes/Party/attributes/Specialities/attributes/Specialty"
+          ],
+          "attributes": [
+            {
+              "label": "Specialty Type",
+              "name": "SpecialtyType",
+              "description": "",
+              "type": "String",
+              "hidden": false,
+              "important": false,
+              "system": false,
+              "required": false,
+              "faceted": false,
+              "searchable": false,
+              "attributeOrdering": {
+                "orderingStrategy": "LUD"
+              },
+              "uri": "configuration/entityTypes/HCP/attributes/Specialities/attributes/SpecialtyType",
+              "lookupCode": "SPEC_TYPE",
+              "skipInDataAccess": false
+            },
+            {
+              "label": "Specialty",
+              "name": "Specialty",
+              "description": "",
+              "type": "String",
+              "hidden": false,
+              "important": false,
+              "system": false,
+              "required": false,
+              "faceted": false,
+              "searchable": false,
+              "attributeOrdering": {
+                "orderingStrategy": "LUD"
+              },
+              "uri": "configuration/entityTypes/HCP/attributes/Specialities/attributes/Specialty",
+              "lookupCode": "SPEC",
+              "skipInDataAccess": false
+            },
+            {
+              "label": "Specialty Detail",
+              "name": "SpecialtyDetail",
+              "description": "",
+              "type": "String",
+              "hidden": false,
+              "important": false,
+              "system": false,
+              "attributeOrdering": {
+                "orderingStrategy": "LUD"
+              },
+              "uri": "configuration/entityTypes/HCP/attributes/Specialities/attributes/SpecialtyDetail",
+              "skipInDataAccess": false
+            }
+          ],
+          "skipInDataAccess": false
+        },
+        {
+          "label": "Prof Type",
+          "name": "ProfType",
+          "description": "",
+          "type": "String",
+          "hidden": false,
+          "important": false,
+          "system": false,
+          "required": false,
+          "faceted": true,
+          "searchable": true,
+          "attributeOrdering": {
+            "orderType": "ASC",
+            "orderingStrategy": "LUD"
+          },
+          "uri": "configuration/entityTypes/HCP/attributes/ProfType",
+          "lookupCode": "PROF_TYPE",
+          "skipInDataAccess": false
+        },
+        {
+          "label": "Employment",
+          "name": "Employment",
+          "type": "Reference",
+          "hidden": false,
+          "important": false,
+          "system": false,
+          "required": false,
+          "faceted": false,
+          "searchable": false,
+          "relationshipLabelPattern": "{Title}",
+          "attributeOrdering": {
+            "orderingStrategy": "LUD"
+          },
+          "uri": "configuration/entityTypes/HCP/attributes/Employment",
+          "referencedAttributeURIs": [
+            "configuration/entityTypes/Organization/attributes/Name",
+            "configuration/relationTypes/Employment/attributes/Title",
+            "configuration/relationTypes/Employment/attributes/Summary",
+            "configuration/relationTypes/Employment/attributes/IsCurrent"
+          ],
+          "referencedEntityTypeURI": "configuration/entityTypes/Organization",
+          "relationshipTypeURI": "configuration/relationTypes/Employment",
+          "skipInDataAccess": false
+        },
+        {
+          "label": "ME",
+          "name": "ME",
+          "description": "DO NOT USE THIS ATTRIBUTE - will be deprecated",
+          "type": "String",
+          "hidden": true,
+          "important": false,
+          "system": false,
+          "required": false,
+          "attributeOrdering": {
+            "orderType": "ASC",
+            "orderingStrategy": "LUD"
+          },
+          "uri": "configuration/entityTypes/HCP/attributes/ME",
+          "skipInDataAccess": false
+        }
+      ],
+      "dataLabelPattern": "{Prefix} {FirstName} {MiddleName} {LastName}, {SuffixName} {Credentials} {AddressLine}",
+      "secondaryLabelPattern": "{Address}",
+      "survivorshipGroups": [
+        {
+          "uri": "configuration/entityTypes/HCP/survivorshipGroups/default",
+          "default": true,
+          "mapping": [
+            {
+              "attribute": "configuration/entityTypes/HCP/attributes/Employment",
+              "survivorshipStrategy": "Aggregation"
+            }
+          ]
+        }
+      ],
+      "abstract": false,
+      "matchGroups": [
+        {
+          "uri": "configuration/entityTypes/HCP/matchGroups/PersonByMEAuto",
+          "label": "HCP by ME and Fuzzy name",
+          "type": "automatic",
+          "rule": {
+            "matchTokenClass": "com.reltio.match.token.ExactNumberMatchToken",
+            "comparatorClasses": {
+              "mapping": [
+                {
+                  "attribute": "configuration/entityTypes/HCP/attributes/FirstName",
+                  "class": "com.reltio.match.comparator.DynamicDamerauLevenshteinDistance"
+                },
+                {
+                  "attribute": "configuration/entityTypes/HCP/attributes/LastName",
+                  "class": "com.reltio.match.comparator.DynamicDamerauLevenshteinDistance"
+                }
+              ]
+            },
+            "and": {
+              "exact": [
+                "configuration/entityTypes/HCP/attributes/ME"
+              ],
+              "fuzzy": [
+                "configuration/entityTypes/HCP/attributes/FirstName",
+                "configuration/entityTypes/HCP/attributes/LastName"
+              ],
+              "ignoreInToken": [
+                "configuration/entityTypes/HCP/attributes/FirstName",
+                "configuration/entityTypes/HCP/attributes/LastName"
+              ]
+            }
+          },
+          "matchServiceClass": "com.reltio.businesslogic.match.providers.internal.InternalMatchService",
+          "scoreStandalone": 0,
+          "scoreIncremental": 0
+        },
+        {
+          "uri": "configuration/entityTypes/HCP/matchGroups/PersonByIMSID",
+          "label": "HCP by IMS ID (#0)",
+          "type": "automatic",
+          "rule": {
+            "matchTokenClass": "com.reltio.match.token.ExactMatchToken",
+            "and": {
+              "exact": [
+                "configuration/entityTypes/HCP/attributes/Identifiers/attributes/ID"
+              ],
+              "equals": [
+                {
+                  "value": "IMS ID",
+                  "values": [
+                    "IMS ID"
+                  ],
+                  "uri": "configuration/entityTypes/HCP/attributes/Identifiers/attributes/Type"
+                }
+              ]
+            }
+          },
+          "matchServiceClass": "com.reltio.businesslogic.match.providers.internal.InternalMatchService",
+          "scoreStandalone": 0,
+          "scoreIncremental": 0
+        },
+        {
+          "uri": "configuration/entityTypes/HCP/matchGroups/PersonByIdentifiersSuspectId1",
+          "label": "HCP by Identifiers (by TM)",
+          "type": "suspect",
+          "rule": {
+            "and": {
+              "exact": [
+                "configuration/entityTypes/HCP/attributes/Identifiers/attributes/ID"
+              ],
+              "equals": [
+                {
+                  "value": "TM",
+                  "values": [
+                    "TM"
+                  ],
+                  "uri": "configuration/entityTypes/HCP/attributes/Identifiers/attributes/Type"
+                }
+              ],
+              "exactOrNull": [
+                "configuration/entityTypes/HCP/attributes/Identifiers/attributes/Status"
+              ]
+            }
+          },
+          "scoreStandalone": 0,
+          "scoreIncremental": 0
+        }
+      ]
+    }
+  ],
+  "relationTypes": [
+    {
+      "uri": "configuration/relationTypes/HasAddress",
+      "label": "has address",
+      "description": "Types of relationships between Parties (Individuals and Organizations) and Location",
+      "typeColor": "#663344",
+      "startObject": {
+        "uri": "configuration/relationTypes/HasAddress/startObject",
+        "directionalContext": [
+          {
+            "uri": "configuration/relationTypes/HasAddress/startObject/directionalContext",
+            "labelPattern": "has address"
+          }
+        ],
+        "objectTypeURI": "configuration/entityTypes/Party"
+      },
+      "endObject": {
+        "uri": "configuration/relationTypes/HasAddress/endObject",
+        "directionalContext": [
+          {
+            "uri": "configuration/relationTypes/HasAddress/endObject/directionalContext",
+            "labelPattern": "locates"
+          }
+        ],
+        "objectTypeURI": "configuration/entityTypes/Location"
+      },
+      "implicit": true,
+      "attributes": [
+        {
+          "label": "Status",
+          "name": "Status",
+          "type": "String",
+          "hidden": true,
+          "important": false,
+          "system": false,
+          "attributeOrdering": {
+            "orderingStrategy": "LUD"
+          },
+          "uri": "configuration/relationTypes/HasAddress/attributes/Status",
+          "skipInDataAccess": false
+        },
+        {
+          "label": "Address Type",
+          "name": "AddressType",
+          "type": "String",
+          "hidden": false,
+          "important": false,
+          "system": false,
+          "attributeOrdering": {
+            "orderingStrategy": "LUD"
+          },
+          "uri": "configuration/relationTypes/HasAddress/attributes/AddressType",
+          "skipInDataAccess": false
+        },
+        {
+          "label": "Primary",
+          "name": "Primary",
+          "type": "Boolean",
+          "hidden": false,
+          "important": false,
+          "system": false,
+          "attributeOrdering": {
+            "orderingStrategy": "LUD"
+          },
+          "uri": "configuration/relationTypes/HasAddress/attributes/Primary",
+          "skipInDataAccess": false
+        },
+        {
+          "label": "AddressRank",
+          "name": "AddressRank",
+          "type": "Int",
+          "hidden": false,
+          "important": false,
+          "system": false,
+          "attributeOrdering": {
+            "orderingStrategy": "LUD"
+          },
+          "uri": "configuration/relationTypes/HasAddress/attributes/AddressRank",
+          "skipInDataAccess": false
+        },
+        {
+          "label": "Care Of",
+          "name": "CareOf",
+          "type": "String",
+          "hidden": false,
+          "important": false,
+          "system": false,
+          "attributeOrdering": {
+            "orderingStrategy": "LUD"
+          },
+          "uri": "configuration/relationTypes/HasAddress/attributes/CareOf",
+          "skipInDataAccess": false
+        },
+        {
+          "label": "Active",
+          "name": "Active",
+          "type": "Boolean",
+          "hidden": false,
+          "important": false,
+          "system": false,
+          "attributeOrdering": {
+            "orderingStrategy": "LUD"
+          },
+          "uri": "configuration/relationTypes/HasAddress/attributes/Active",
+          "skipInDataAccess": false
+        },
+        {
+          "label": "Phone",
+          "name": "Phone",
+          "type": "Nested",
+          "hidden": false,
+          "important": false,
+          "system": false,
+          "attributeOrdering": {
+            "orderingStrategy": "LUD"
+          },
+          "uri": "configuration/relationTypes/HasAddress/attributes/Phone",
+          "dataLabelPattern": "{Number} {Type}",
+          "attributes": [
+            {
+              "label": "Type",
+              "name": "Type",
+              "description": "",
+              "type": "String",
+              "hidden": false,
+              "important": false,
+              "system": false,
+              "values": [
+                "Mobile",
+                "Home",
+                "Work",
+                "Fax",
+                "Main",
+                "Work Fax",
+                "Home Fax",
+                "Pager",
+                "Other"
+              ],
+              "attributeOrdering": {
+                "orderingStrategy": "LUD"
+              },
+              "uri": "configuration/relationTypes/HasAddress/attributes/Phone/attributes/Type",
+              "skipInDataAccess": false
+            },
+            {
+              "label": "Number",
+              "name": "Number",
+              "description": "",
+              "type": "String",
+              "hidden": false,
+              "important": false,
+              "system": false,
+              "attributeOrdering": {
+                "orderingStrategy": "LUD"
+              },
+              "uri": "configuration/relationTypes/HasAddress/attributes/Phone/attributes/Number",
+              "skipInDataAccess": false
+            },
+            {
+              "label": "Extension",
+              "name": "Extension",
+              "description": "",
+              "type": "String",
+              "hidden": false,
+              "important": false,
+              "system": false,
+              "attributeOrdering": {
+                "orderingStrategy": "LUD"
+              },
+              "uri": "configuration/relationTypes/HasAddress/attributes/Phone/attributes/Extension",
+              "skipInDataAccess": false
+            },
+            {
+              "label": "Rank",
+              "name": "Rank",
+              "description": "",
+              "type": "Int",
+              "hidden": false,
+              "important": false,
+              "system": false,
+              "attributeOrdering": {
+                "orderingStrategy": "LUD"
+              },
+              "uri": "configuration/relationTypes/HasAddress/attributes/Phone/attributes/Rank",
+              "skipInDataAccess": false
+            },
+            {
+              "label": "Active",
+              "name": "Active",
+              "description": "",
+              "type": "Boolean",
+              "hidden": false,
+              "important": false,
+              "system": false,
+              "attributeOrdering": {
+                "orderingStrategy": "LUD"
+              },
+              "uri": "configuration/relationTypes/HasAddress/attributes/Phone/attributes/Active",
+              "skipInDataAccess": false
+            }
+          ],
+          "skipInDataAccess": false
+        },
+        {
+          "label": "Source CD",
+          "name": "SourceCD",
+          "description": "",
+          "type": "String",
+          "hidden": false,
+          "important": false,
+          "system": false,
+          "attributeOrdering": {
+            "orderingStrategy": "LUD"
+          },
+          "uri": "configuration/relationTypes/HasAddress/attributes/SourceCD",
+          "skipInDataAccess": false
+        },
+        {
+          "label": "Commenters",
+          "name": "Commenters",
+          "description": "Commenters",
+          "type": "String",
+          "hidden": true,
+          "important": false,
+          "system": false,
+          "attributeOrdering": {
+            "orderingStrategy": "LUD"
+          },
+          "uri": "configuration/relationTypes/HasAddress/attributes/Commenters",
+          "skipInDataAccess": false
+        }
+      ],
+      "survivorshipGroups": [
+        {
+          "uri": "configuration/relationTypes/HasAddress/survivorshipGroups/default",
+          "default": true,
+          "mapping": [
+            {
+              "attribute": "configuration/relationTypes/HasAddress/attributes/AddressType",
+              "survivorshipStrategy": "Aggregation"
+            }
+          ]
+        }
+      ],
+      "direction": "directed"
+    }
+  ],
+  "survivorshipStrategies": [
+    {
+      "uri": "configuration/survivorshipStrategies/CleanserWinsStrategy",
+      "label": "Reltio Cleanser or Nothing",
+      "winnerSourceType": "configuration/sources/ReltioCleanser",
+      "winnerSourceAttributes": [
+        "configuration/entityTypes/Location/attributes/AddressLine1"
+      ]
+    },
+    {
+      "uri": "configuration/survivorshipStrategies/LUD",
+      "label": "Recency"
+    },
+    {
+      "uri": "configuration/survivorshipStrategies/Frequency",
+      "label": "Frequency"
+    },
+    {
+      "uri": "configuration/survivorshipStrategies/Aggregation",
+      "label": "Aggregation"
+    },
+    {
+      "uri": "configuration/survivorshipStrategies/SRC_SYS",
+      "label": "Source system"
+    },
+    {
+      "uri": "configuration/survivorshipStrategies/OldestValue",
+      "label": "Oldest value"
+    },
+    {
+      "uri": "configuration/survivorshipStrategies/MinValue",
+      "label": "Minimum value"
+    },
+    {
+      "uri": "configuration/survivorshipStrategies/MaxValue",
+      "label": "Maximum value"
+    },
+    {
+      "uri": "configuration/survivorshipStrategies/OtherAttributeWinnerCrosswalk",
+      "label": "Other Attribute Winner Crosswalk"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+name: newMainCaller # workflow name
+
+on:
+  push:
+    branches: [ "master" ]
+
+env:
+  TENANT_UTL: your-app-name    # env example
+
+
+jobs:
+  run-depoy-configuration:
+    name: deploy tenant configuration
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Run the script1
+      run: do something here
+    - name: Run the script
+      id: generate_file
+      run: |     # grant permission to execute reltioDeploy file,assume reltioDeploy.sh is in reltio folder
+        chmod +x reltioDeploy.sh        
+        ./reltioDeploy.sh ${{ github.workspace }}/path/to/your/file.ext  > output_file.txt
+        echo "::set-output name=file_path::${{ github.workspace }}/output_file.txt" 
+      working-directory: "./reltio" 
+    - name: Run test script2
+      run: |                                  # Access the output of the previous step
+        file_path="${{ needs.generate_file.outputs.file_path }}"
+        echo "Processing file: $file_path

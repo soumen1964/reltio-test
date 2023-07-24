@@ -3,6 +3,8 @@ name: newMainCaller # workflow name
 on:
   push:
     branches: [ "master" ]
+  pull_request:
+    branches: [ "main" ]
 
 env:
   TENANT_UTL: Not_used    # env example

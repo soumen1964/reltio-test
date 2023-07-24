@@ -5,7 +5,8 @@ on:
     branches: [ "master" ]
 
 env:
-  TENANT_UTL: your-app-name    # env example
+  TENANT_UTL: Not_used    # env example
+  CONFIG_FILE: configuration.json
 
 
 jobs:
@@ -15,16 +16,15 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-    - name: Run the script1
+    - name: Deploy configuration
       run: do something here
-    - name: Run the script
-      id: generate_file
-      run: |     # grant permission to execute reltioDeploy file,assume reltioDeploy.sh is in reltio folder
-        chmod +x reltioDeploy.sh        
-        ./reltioDeploy.sh ${{ github.workspace }}/path/to/your/file.ext  > output_file.txt
+    - name: Deploy configuration
+      run: |     # grant permission to execute script/Deploy.sh file
+        chmod +x ./script/Deploy.sh        
+        sh ./script/Deploy.sh ${{ github.workspace }}$CONFIG_FILE  > output_file.txt
         echo "::set-output name=file_path::${{ github.workspace }}/output_file.txt" 
       working-directory: "./reltio" 
     - name: Run test script2
-      run: |                                  # Access the output of the previous step
-        file_path="${{ needs.generate_file.outputs.file_path }}"
-        echo "Processing file: $file_path
+      run: |                                  
+        sh ./script/RunTestScripts.sh ${{ github.workspace }}$CONFIG_FILE  > output_file.txt
+        echo "::set-output name=file_path::${{ github.workspace }}/output_file.txt" 

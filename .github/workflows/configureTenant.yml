@@ -23,7 +23,7 @@ jobs:
     - name: Deploy configuration
       run: |     # grant permission to execute script/Deploy.sh file
         chmod +x ./script/Deploy.sh        
-        sh ./script/Deploy.sh ${{ github.workspace }}$CONFIG_FILE  > output_file.txt
+        sh ./script/Deploy.sh  > output_file.txt
         echo "::set-output name=file_path::${{ github.workspace }}/output_file.txt" 
       working-directory: "./reltio" 
     - name: Run test scripts

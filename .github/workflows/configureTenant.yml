@@ -21,14 +21,12 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
     - name: Deploy configuration
-      run: do something here
-    - name: Deploy configuration
       run: |     # grant permission to execute script/Deploy.sh file
         chmod +x ./script/Deploy.sh        
         sh ./script/Deploy.sh ${{ github.workspace }}$CONFIG_FILE  > output_file.txt
         echo "::set-output name=file_path::${{ github.workspace }}/output_file.txt" 
       working-directory: "./reltio" 
-    - name: Run test script2
+    - name: Run test scripts
       run: |                                  
         sh ./script/RunTestScripts.sh ${{ github.workspace }}$CONFIG_FILE  > output_file.txt
         echo "::set-output name=file_path::${{ github.workspace }}/output_file.txt" 

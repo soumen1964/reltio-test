@@ -5,12 +5,12 @@ USERNAME="soumen@2pirad.com"
 PASSWORD="Passw0rd@Sou"
 
 echo Getting Access token
-CREDENTIALS="$( curl --location --request POST ${AUTH_ENDPOINT}username=$USERNAME'&password='$PASSWORD'&grant_type=password' --header 'Authorization: Basic cmVsdGlvX3VpOm1ha2l0YQ==' | jq -r .access_token )"
+CREDENTIALS="$( curl --silent --location --request POST ${AUTH_ENDPOINT}username=$USERNAME'&password='$PASSWORD'&grant_type=password' --header 'Authorization: Basic cmVsdGlvX3VpOm1ha2l0YQ==' | jq -r .access_token )"
 
 echo Access token = $CREDENTIALS
 
 echo Getting current configuration
-curl --location ${TENANT_URI}'/_noInheritance' \
+curl --silent --location ${TENANT_URI}'/_noInheritance' \
 --header 'Authorization: Bearer '$CREDENTIALS >old-config.json
 
 res=$?
@@ -20,7 +20,7 @@ if test "$res" != "0"; then
 fi
 
 echo Updating with new configuration
-curl --location --request PUT ${TENANT_URI} \
+curl --silent --location --request PUT ${TENANT_URI} \
 --header 'Authorization: Bearer '$CREDENTIALS \
 --header 'Content-Type: text/plain' \
 --data-binary '@../json/configure.json' >output

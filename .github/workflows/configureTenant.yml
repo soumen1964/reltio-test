@@ -22,10 +22,7 @@ jobs:
       uses: actions/checkout@v2
     - name: Deploy configuration
       run: |     # grant permission to execute script/Deploy.sh file
-        chmod +x ./Deploy.sh 
-        pwd
-        ls -l 
-        sh Deploy.sh   > output_file.txt
+       sh Deploy.sh   > output_file.txt
         cat output_file.txt
       working-directory: "./script" 
     - name: Run test scripts

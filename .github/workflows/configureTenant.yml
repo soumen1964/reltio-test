@@ -27,6 +27,6 @@ jobs:
       working-directory: "./script" 
     - name: Run test scripts
       run: |                                  
-        sh RunTestScripts.sh   > output_file.txt
-        cat output_file.txt 
+        sh RunTestScripts.sh  
+        
       working-directory: "./script"

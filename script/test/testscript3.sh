@@ -1,1 +1,2 @@
-echo Test Script 3
+echo Running Test Script 3 ...
+echo Test Script 3 ..Passed

@@ -23,7 +23,7 @@ echo Updating with new configuration
 curl --location --request PUT ${TENANT_URI} \
 --header 'Authorization: Bearer '$CREDENTIALS \
 --header 'Content-Type: text/plain' \
---data-binary '@./old-config.json' >output
+--data-binary '@../json/configure.json' >output
 
 res=$?
 if test "$res" != "0"; then

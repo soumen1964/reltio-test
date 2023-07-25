@@ -25,7 +25,7 @@ jobs:
         chmod +x ./Deploy.sh 
         pwd
         ls -l 
-        sh ./script/Deploy.sh   > output_file.txt
+        sh Deploy.sh   > output_file.txt
         cat output_file.txt
       working-directory: "./script" 
     - name: Run test scripts

@@ -1,1 +1,1 @@
-echo Test Script 1
+echo Test Script 1 passed

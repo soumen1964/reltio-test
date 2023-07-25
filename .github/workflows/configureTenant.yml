@@ -25,7 +25,8 @@ jobs:
         chmod +x ./script/Deploy.sh 
         pwd
         ls -l 
-      working-directory: "." 
+        
+      working-directory: "./script" 
     - name: Run test scripts
       run: |                                  
         sh ./script/RunTestScripts.sh ${{ github.workspace }}$CONFIG_FILE  > output_file.txt

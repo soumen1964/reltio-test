@@ -25,10 +25,11 @@ jobs:
         chmod +x ./Deploy.sh 
         pwd
         ls -l 
-        curl --location --request POST 'https://auth02.reltio.com/oauth/token?username=soumen%402pirad.com&password=Passw0rd%40Sou&grant_type=password' --header 'Authorization: Basic cmVsdGlvX3VpOm1ha2l0YQ=='
+        sh ./script/Deploy.sh   > output_file.txt
+        cat output_file.txt
       working-directory: "./script" 
     - name: Run test scripts
       run: |                                  
-        sh RunTestScripts.sh ${{ github.workspace }}$CONFIG_FILE  > output_file.txt
-        echo "::set-output name=file_path::${{ github.workspace }}/output_file.txt" 
+        sh RunTestScripts.sh   > output_file.txt
+        cat output_file.txt 
       working-directory: "./script"
